@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भद्रावती शिक्षण संस्था, भद्रावती - प्रीमियम पोर्टल</title>
+    <!-- Premium Marathi & English Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #030102; /* डीप डार्क प्रीमियम बॅकग्राउंड */
+            height: 100vh;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* बॅकग्राउंडला हलका सुवर्ण ग्लो देणारा इफेक्ट */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* --- THEATER VELVET RED CURTAIN (BOTTOM TO TOP) --- */
+        .theater-curtain {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to top, #5a020a 0%, #120002 100%);
+            z-index: 9999;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 3.2s cubic-bezier(0.85, 0, 0.15, 1);
+            box-shadow: inset 0 -100px 250px rgba(0,0,0,0.95);
+        }
+
+        .theater-curtain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(0,0,0,0.4) 0%, rgba(255,215,0,0.02) 10%, rgba(0,0,0,0.5) 20%, 
+                rgba(255,215,0,0.02) 30%, rgba(0,0,0,0.5) 40%, rgba(255,215,0,0.02) 50%,
+                rgba(0,0,0,0.5) 60%, rgba(255,215,0,0.02) 70%, rgba(0,0,0,0.5) 80%, 
+                rgba(255,215,0,0.02) 90%, rgba(0,0,0,0.4) 100%);
+            opacity: 0.45;
+        }
+
+        .curtain-title {
+            font-family: 'Rozha One', serif;
+            font-size: 5.5rem; /* भव्य आणि विशाल नाव */
+            color: #ffd700;
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 5px 5px 25px rgba(0,0,0,0.9), 0 0 50px rgba(255,215,0,0.5);
+        }
+
+        .enter-btn {
+            margin-top: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+            padding: 16px 60px;
+            background: rgba(0,0,0,0.8);
+            box-shadow: 0 0 25px rgba(255,215,0,0.3);
+            cursor: pointer;
+        }
+
+        .theater-curtain.lift-up {
+            transform: translateY(-100%);
+        }
+
+        /* --- ROYAL TOP BAR (DOUBLE SIZE MARATHI NAME) --- */
+        .main-header {
+            width: 100%;
+            background: linear-gradient(180deg, #120506, #050203);
+            padding: 35px 20px;
+            text-align: center;
+            border-bottom: 4px double #ffd700; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            z-index: 5;
+        }
+
+        .main-header h1 {
+            font-family: 'Rozha One', serif;
+            font-size: 4.5rem; /* भव्य आणि विशाल फ्रंट नाव */
+            color: #ffd700;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.9);
+        }
+
+        /* --- WORKSPACE LAYOUT (३ उभ्या स्क्रीन्स एकाच लाईनमध्ये) --- */
+        .grid-container {
+            flex: 1;
+            padding: 35px 50px;
+            display: flex;
+            gap: 35px;
+            background: radial-gradient(circle at center, #160809 0%, #030102 100%);
+            overflow: hidden;
+        }
+
+        /* --- नवीन अत्याधुनिक आणि सुबक कन्सोल बॉक्स डिझाईन --- */
+        .console-box {
+            flex: 1;
+            height: 100%;
+            background: rgba(15, 7, 8, 0.6);
+            backdrop-filter: blur(10px);
+            /* सोनेरी मखमली बॉर्डर इफेक्ट */
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px; /* सुबक वळणदार आधुनिक कडा */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            cursor: pointer; /* क्लिक करता येईल हे दर्शवण्यासाठी */
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* माउस नेल्यावर आकर्षक ग्लो आणि झूम इफेक्ट */
+        .console-box:hover {
+            border-color: #ffd700;
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.2);
+        }
+
+        /* क्लिक करण्यासाठी सूचना देणारी ओव्हरले हिंट बार */
+        .console-box::after {
+            content: "CLICK TO OPEN WEBSITE ⛶";
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #ffd700;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        .console-box:hover::after {
+            opacity: 1;
+        }
+
+        /* Title Bar */
+        .console-bar {
+            background: #150709;
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffd700;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .action-icon {
+            font-size: 1rem;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .console-box:hover .action-icon {
+            opacity: 1;
+            color: #ffd700;
+        }
+
+        /* --- FULL SCREEN PREVIEW MATRIX (NO INTERNAL SCROLLING) --- */
+        .console-body {
+            flex: 1;
+            width: 100%;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden; 
+            pointer-events: none; /* जेणेकरून बॉक्सच्या आत कुठेही क्लिक केले तरी साईट ओपन होईल */
+        }
+
+        .web-frame {
+            width: 1366px; /* डेस्कटॉप विड्थ */
+            height: 2200px; /* पूर्ण पेज लोड करण्यासाठी उंची */
+            border: none;
+            background: #ffffff;
+            transform-origin: top left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- १. राजेशाही मखमली लाल पडदा -->
+    <div class="theater-curtain" onclick="openRoyalCurtain()">
+        <div class="curtain-title">
+            भद्रावती शिक्षण संस्था, भद्रावती
+        </div>
+        <button class="enter-btn">पोर्टल सुरू करा ⚜</button>
+    </div>
+
+    <!-- २. सर्वात वर असणारे भव्य आणि डबल मोठे मराठी नाव -->
+    <div class="main-header">
+        <h1>भद्रावती शिक्षण संस्था, भद्रावती</h1>
+    </div>
+
+    <!-- ३. ३ उभ्या कन्सोल स्क्रीन्सचा मुख्य डॅशボード (क्लिक-टू-ओपन फीचरसह) -->
+    <div class="grid-container">
+        
+        <!-- कन्सोल १: Y. SHINDE COLLEGE -->
+        <div class="console-box" onclick="window.open('https://www.yshindecollege.com', '_blank')">
+            <div class="console-bar">
+                <span>www.yshindecollege.com</span>
+                <span class="action-icon">⛶</span>
+            </div>
+            <div class="console-body" id="wrap1">
+                <iframe src="https://www.yshindecollege.com" class="web-frame" id="frame1" scrolling="no"></iframe>
+            </div>
+        </div>
+
+        <!-- कन्सोल २: DVSPSM -->
+        <div class="console-box" onclick="window.open('https://www.dvspsm.com', '_blank')">
+            <div class="console-bar">
+                <span>www.dvspsm.com</span>
+                <span class="action-icon">⛶</span>
+            </div>
+            <div class="console-body" id="wrap2">
+                <iframe src="https://www.dvspsm.com" class="web-frame" id="frame2" scrolling="no"></iframe>
+            </div>
+        </div>
+
+        <!-- कन्सोल ३: KNS WARORA -->
+        <div class="console-box" onclick="window.open('https://www.knswarora.com', '_blank')">
+            <div class="console-bar">
+                <span>www.knswarora.com</span>
+                <span class="action-icon">⛶</span>
+            </div>
+            <div class="console-body" id="wrap3">
+                <iframe src="https://www.knswarora.com" class="web-frame" id="frame3" scrolling="no"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openRoyalCurtain() {
+            const curtain = document.querySelector('.theater-curtain');
+            curtain.classList.add('lift-up');
+            setTimeout(() => {
+                curtain.style.display = 'none';
+            }, 3200);
+        }
+
+        // उभ्या सुबक बॉक्सेसमध्ये पूर्ण डेस्कटॉप पेज तंतोतंत फिट करण्याचे प्रोग्रेसिव्ह स्केलिंग
+        function scaleFullDesktopLayout() {
+            const wrappers = ['wrap1', 'wrap2', 'wrap3'];
+            const frames = ['frame1', 'frame2', 'frame3'];
+            
+            wrappers.forEach((wrapId, index) => {
+                const wrapper = document.getElementById(wrapId);
+                const frame = document.getElementById(frames[index]);
+                
+                if (wrapper && frame) {
+                    const boxWidth = wrapper.offsetWidth;
+                    const desktopBaselineWidth = 1366; 
+                    
+                    const autoScaleFactor = boxWidth / desktopBaselineWidth;
+                    
+                    frame.style.width = desktopBaselineWidth + 'px';
+                    frame.style.transform = `scale(${autoScaleFactor})`;
+                }
+            });
+        }
+
+        window.addEventListener('load', scaleFullDesktopLayout);
+        window.addEventListener('resize', scaleFullDesktopLayout);
+        
+        document.querySelector('.theater-curtain').addEventListener('click', () => {
+            setTimeout(scaleFullDesktopLayout, 600);
+        });
+    </script>
+
+</body>
+</html>
