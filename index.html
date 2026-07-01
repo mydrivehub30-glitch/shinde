@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #04070a; /* डीप निळा-काळा हाय-एंड बॅकग्राउंड */
+            background: #04070a; 
             height: 100vh;
             color: #ffffff;
             display: flex;
@@ -24,7 +24,6 @@
             position: relative;
         }
 
-        /* बॅकग्राउंड ॲम्बिएंट सुवर्ण प्रकाश (Golden Glow Effect) */
         body::before {
             content: "";
             position: absolute;
@@ -47,7 +46,6 @@
             pointer-events: auto;
         }
 
-        /* प्रीमियम स्प्लिटिंग मॅट पॅनेल्स */
         .overlay-panel-left, .overlay-panel-right {
             width: 50%;
             height: 100%;
@@ -56,17 +54,15 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* संथ, मऊ आणि नॅचरल ओपनिंग गती (५.५ सेकंद) */
-            transition: transform 5.5s cubic-bezier(0.25, 1, 0.3, 1);
             overflow: hidden;
+            /* संथ आणि मऊ ओपनिंग गती (५.५ सेकंद) */
+            transition: transform 5.5s cubic-bezier(0.25, 1, 0.3, 1);
         }
 
         .overlay-panel-left { left: 0; }
         .overlay-panel-right { right: 0; }
 
-        /* स्वागत संदेश (सुवर्ण नक्षीदार लुक जो मधोमध विभागला जाईल) */
+        /* स्वागत संदेश */
         .welcome-msg-half {
             font-family: 'Rozha One', serif;
             font-size: 4rem;
@@ -75,7 +71,7 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 10px 30px rgba(0,0,0,0.8);
             position: absolute;
-            top: 18%;
+            top: 30%;
             width: 200%; 
             text-align: center;
             pointer-events: none;
@@ -85,46 +81,110 @@
         .overlay-panel-left .welcome-msg-half { left: 0; }
         .overlay-panel-right .welcome-msg-half { right: 0; }
 
-        /* फित कॅनव्हास */
-        .ribbon-canvas-container {
+        /* --- INDIVIDUAL TOP LOGOS LAYOUT --- */
+        .top-logos-line {
             position: absolute;
-            width: 100%;
-            height: 400px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 6%; 
             display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
+            gap: 30px; 
         }
 
-        #ribbonCanvas {
+        .overlay-panel-left .top-logos-line {
+            right: 40px; 
+        }
+
+        .overlay-panel-right .top-logos-line {
+            left: 40px; 
+        }
+
+        .single-logo-holder {
+            width: 90px;
+            height: 90px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .logo-img {
+            width: 86%;
+            height: 86%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        /* --- 100% STABLE NON-FLOATING RIBBON DESIGN --- */
+        .ribbon-trigger-layer {
+            position: absolute;
             width: 100%;
-            height: 100%;
+            height: 80px;
+            top: 62%;
+            transform: translateY(-50%);
+            z-index: 10000;
             cursor: pointer;
         }
 
-        /* --- क्लिक झाल्यावर पडदा दोन्ही बाजूंना उघडणे --- */
+        /* डाव्या पडद्यावरील स्थिर फित */
+        .overlay-panel-left .solid-ribbon-half {
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 16px;
+            top: 62%;
+            transform: translateY(-50%);
+            background: linear-gradient(to bottom, #d42a2a, #9c1c1c, #d42a2a);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            border-radius: 0 4px 4px 0;
+            /* कापल्यावर डावी फित संथपणे डावीकडे गोळा होईल */
+            transition: transform 5s cubic-bezier(0.25, 1, 0.3, 1), opacity 4.5s ease;
+            transform-origin: left center;
+        }
+
+        /* उजव्या पडद्यावरील स्थिर फित */
+        .overlay-panel-right .solid-ribbon-half {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 16px;
+            top: 62%;
+            transform: translateY(-50%);
+            background: linear-gradient(to bottom, #d42a2a, #9c1c1c, #d42a2a);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            border-radius: 4px 0 0 4px;
+            /* कापल्यावर उजवी फित संथपणे उजवीकडे गोळा होईल */
+            transition: transform 5s cubic-bezier(0.25, 1, 0.3, 1), opacity 4.5s ease;
+            transform-origin: right center;
+        }
+
+        /* --- क्लिक झाल्यावर पडदा आणि फित उघडणे --- */
         .ribbon-overlay.is-cut-open .overlay-panel-left { transform: translateX(-100%); }
         .ribbon-overlay.is-cut-open .overlay-panel-right { transform: translateX(100%); }
+        
+        /* फित स्वतः आकुंचन पावून गायब होण्याचा इफेक्ट */
+        .ribbon-overlay.is-cut-open .overlay-panel-left .solid-ribbon-half { transform: scaleX(0); opacity: 0; }
+        .ribbon-overlay.is-cut-open .overlay-panel-right .solid-ribbon-half { transform: scaleX(0); opacity: 0; }
+        
         .ribbon-overlay.is-cut-open { pointer-events: none; }
 
 
-        /* --- PREMIUM MAIN INTERFACE --- */
+        /* --- PREMIUM DASHBOARD INTERFACE --- */
         .main-header {
             width: 100%;
             background: rgba(11, 15, 22, 0.7);
             backdrop-filter: blur(20px);
             padding: 30px 20px;
             text-align: center;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3); /* सुबक थिन गोल्ड बॉर्डर */
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             z-index: 5;
         }
 
         .main-header h1 {
             font-family: 'Rozha One', serif;
-            font-size: 4.5rem; /* भव्य आणि विशाल मराठी नाव */
+            font-size: 4.5rem; 
             background: linear-gradient(135deg, #ffffff, #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -140,14 +200,13 @@
             overflow: hidden;
         }
 
-        /* --- काचेसारखे पारदर्शक कन्सोल बॉक्सेस (Glassmorphic Neon Look) --- */
         .console-box {
             flex: 1;
             height: 100%;
             background: rgba(17, 24, 34, 0.3);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px; /* आधुनिक सुबक कडा */
+            border-radius: 20px; 
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -157,7 +216,6 @@
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        /* माउस फिरवल्यावर कडांना येणारा हलका निळा-सोनेरी निऑन ग्लो */
         .console-box::before {
             content: "";
             position: absolute;
@@ -169,7 +227,6 @@
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
-            transition: background 0.4s ease;
         }
 
         .console-box:hover {
@@ -182,7 +239,6 @@
             background: linear-gradient(135deg, #00f2fe, transparent 50%, #ffd700);
         }
 
-        /* वेबसाईट उघडण्यासाठी प्रॉम्ट हिंट */
         .console-box::after {
             content: "CLICK TO OPEN FULL SCREEN ⛶";
             position: absolute;
@@ -200,7 +256,6 @@
         }
         .console-box:hover::after { opacity: 1; }
 
-        /* कन्सोल टॉप बार */
         .console-bar {
             background: rgba(22, 32, 45, 0.6);
             padding: 14px 24px;
@@ -222,7 +277,6 @@
             box-shadow: 0 0 10px #00f2fe;
         }
 
-        /* मूळ डेस्कटॉप इंटरफेस बॉडी */
         .console-body {
             flex: 1;
             width: 100%;
@@ -243,25 +297,59 @@
 </head>
 <body>
 
+    <!-- १. पूर्णपणे स्टेबल फित, ६ स्वतंत्र लोगोज टॉप लाईनमध्ये आणि स्प्लिटिंग पडदा -->
     <div class="ribbon-overlay" id="ribbonOverlay">
         
+        <!-- डावा भाग -->
         <div class="overlay-panel-left">
             <div class="welcome-msg-half">भद्रावती शिक्षण संस्था, भद्रावती<br>मध्ये आपले स्वागत आहे</div>
+            
+            <div class="top-logos-line">
+                <div class="single-logo-holder">
+                    <img src="1111 (1).jpg" class="logo-img" alt="Logo 1">
+                </div>
+                <div class="single-logo-holder">
+                    <img src="1610175912956.jpg" class="logo-img" alt="Logo 2">
+                </div>
+                <div class="single-logo-holder">
+                    <img src="WARORA LOGO (1).jpg" class="logo-img" alt="Logo 3">
+                </div>
+            </div>
+
+            <!-- सॉलिड डावी फित -->
+            <div class="solid-ribbon-half"></div>
         </div>
 
+        <!-- उजवा भाग -->
         <div class="overlay-panel-right">
             <div class="welcome-msg-half">भद्रावती शिक्षण संस्था, भद्रावती<br>मध्ये आपले स्वागत आहे</div>
+            
+            <div class="top-logos-line">
+                <div class="single-logo-holder">
+                    <img src="logo(1) copy.jpg" class="logo-img" alt="Logo 4">
+                </div>
+                <div class="single-logo-holder">
+                    <img src="PicsArt_08-10-01.19.29.jpg" class="logo-img" alt="Logo 5">
+                </div>
+                <div class="single-logo-holder">
+                    <img src="ITI LOGO.jpg" class="logo-img" alt="Logo 6">
+                </div>
+            </div>
+
+            <!-- सॉलिड उजवी फित -->
+            <div class="solid-ribbon-half"></div>
         </div>
         
-        <div class="ribbon-canvas-container">
-            <canvas id="ribbonCanvas" onclick="triggerPhysicsCut()"></canvas>
-        </div>
+        <!-- क्लिक डिटेक्ट करणारी इनव्हिजिबल ट्रिगर लेयर (फितीवर कुठेही क्लिक करा) -->
+        <div class="ribbon-trigger-layer" onclick="executeStableCut()"></div>
     </div>
 
+    <!-- २. मुख्य डॅशबोर्ड हेडर -->
     <div class="main-header">
         <h1>भद्रावती शिक्षण संस्था, भद्रावती</h1>
     </div>
 
+    <!-- ३. ३ उभ्या स्क्रीन्सचा डॅशबोर्ड -->
     <div class="grid-container">
         
         <div class="console-box" onclick="window.open('https://www.yshindecollege.com', '_blank')">
@@ -297,140 +385,21 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('ribbonCanvas');
-        const ctx = canvas.getContext('2d');
+        let isAlreadyCut = false;
 
-        let points = [];
-        let segments = [];
-        const numPoints = 60; 
-        let isCut = false;
-        let cutIndex = Math.floor(numPoints / 2);
-
-        function initPhysics() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
-
-            const startX = 0; 
-            const endX = canvas.width;
-            const startY = canvas.height / 2;
-            const spacing = (endX - startX) / (numPoints - 1);
-
-            for (let i = 0; i < numPoints; i++) {
-                let x = startX + i * spacing;
-                let y = startY + Math.sin((i / (numPoints - 1)) * Math.PI) * 35; 
-                points.push({
-                    x: x, y: y,
-                    oldX: x, oldY: y,
-                    isPinned: (i === 0 || i === numPoints - 1)
-                });
-            }
-
-            for (let i = 0; i < numPoints - 1; i++) {
-                segments.push({
-                    p1: points[i],
-                    p2: points[i + 1],
-                    length: spacing
-                });
-            }
-        }
-
-        function updatePhysics() {
-            const gravity = 0.12; 
-            const friction = 0.94; 
-
-            if (isCut) {
-                const shiftSpeed = 4.5; 
-                points[0].x -= shiftSpeed;
-                points[numPoints - 1].x += shiftSpeed;
-            }
-
-            for (let i = 0; i < points.length; i++) {
-                let p = points[i];
-                if (p.isPinned) continue;
-
-                let vx = (p.x - p.oldX) * friction;
-                let vy = (p.y - p.oldY) * friction;
-
-                p.oldX = p.x;
-                p.oldY = p.y;
-
-                p.x += vx;
-                p.y += vy + gravity;
-            }
-
-            for (let j = 0; j < 16; j++) {
-                for (let i = 0; i < segments.length; i++) {
-                    let seg = segments[i];
-                    let dx = seg.p2.x - seg.p1.x;
-                    let dy = seg.p2.y - seg.p1.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    let diff = seg.length - dist;
-                    let percent = (diff / dist) / 2;
-                    let offsetX = dx * percent;
-                    let offsetY = dy * percent;
-
-                    if (!seg.p1.isPinned) { seg.p1.x -= offsetX; seg.p1.y -= offsetY; }
-                    if (!seg.p2.isPinned) { seg.p2.x += offsetX; seg.p2.y += offsetY; }
-                }
-            }
-        }
-
-        function drawRibbon() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.lineWidth = 14; 
-            ctx.strokeStyle = '#c0392b'; /* रेशमी मऊ लाल रंग */
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = 'rgba(0,0,0,0.5)';
-
-            if (!isCut) {
-                ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
-                for (let i = 1; i < points.length; i++) {
-                    ctx.lineTo(points[i].x, points[i].y);
-                }
-                ctx.stroke();
-            } else {
-                ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
-                for (let i = 1; i <= cutIndex; i++) {
-                    ctx.lineTo(points[i].x, points[i].y);
-                }
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(points[cutIndex + 1].x, points[cutIndex + 1].y);
-                for (let i = cutIndex + 2; i < points.length; i++) {
-                    ctx.lineTo(points[i].x, points[i].y);
-                }
-                ctx.stroke();
-            }
-        }
-
-        function loop() {
-            updatePhysics();
-            drawRibbon();
-            requestAnimationFrame(loop);
-        }
-
-        function triggerPhysicsCut() {
-            if (isCut) return;
-            isCut = true;
+        function executeStableCut() {
+            if (isAlreadyCut) return;
+            isAlreadyCut = true;
 
             const overlay = document.getElementById('ribbonOverlay');
+            
+            // पडदा आणि फित एकत्र स्प्लिट ओपन होणे ट्रिगर
             overlay.classList.add('is-cut-open');
 
-            segments.splice(cutIndex, 1);
-
-            points[cutIndex].oldX += 3;
-            points[cutIndex].oldY += 5;
-            points[cutIndex + 1].oldX -= 3;
-            points[cutIndex + 1].oldY += 5;
-
+            // बॅकग्राउंड डेस्कटॉप पोर्टल्स री-स्केल करणे
             setTimeout(scaleFullDesktopLayout, 600);
 
+            // ॲनिमेशन संपल्यावर ओव्हरले पॅनेल पूर्ण बंद करणे
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 6000);
@@ -455,18 +424,8 @@
             });
         }
 
-        window.addEventListener('load', () => {
-            initPhysics();
-            loop();
-            scaleFullDesktopLayout();
-        });
-        window.addEventListener('resize', () => {
-            if(canvas && canvas.parentElement) {
-                canvas.width = canvas.parentElement.offsetWidth;
-                canvas.height = canvas.parentElement.offsetHeight;
-            }
-            scaleFullDesktopLayout();
-        });
+        window.addEventListener('load', scaleFullDesktopLayout);
+        window.addEventListener('resize', scaleFullDesktopLayout);
     </script>
 </body>
 </html>
